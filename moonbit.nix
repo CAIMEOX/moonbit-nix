@@ -1,11 +1,11 @@
-{ stdenv, fetchurl, fetchgit, lib }:
-let cli = "https://cli.moonbitlang.com"; in
-stdenv.mkDerivation {
+{ stdenv, pkgs, fetchurl, fetchgit, lib }:
+let cli = "https://cli.moonbitlang.com";
+in stdenv.mkDerivation {
   pname = "moonbit";
   version = "0.1.0";
   src = fetchgit {
     url = "https://github.com/moonbitlang/core";
-    hash = "sha256-Tmlc10jOha0UG2S5KMEhueIqXykFqsaxLMseW+WlrjQ=";
+    hash = "sha256-KFhRRLHw12UlRemr+zWoHFw/qfusP1OUXnGj8ApKYac=";
   };
   srcs = [
     (fetchurl {
@@ -36,6 +36,9 @@ stdenv.mkDerivation {
       hash = "sha256-BBT3Lx7kIYnn9WjwT5sSt2BrRiLKpimj/wSXt1z5xhE=";
     })
   ];
+  buildInputs = [ pkgs.gcc stdenv.cc pkgs.glibc ];
+  preFixup = ''
+    patchelf --set-interpreter "$(cat $NIX_CC/nix-support/dynamic-linker)" $out/bin/*'';
   doCheck = false;
   sourceRoot = ".";
   dontUnpack = true;
@@ -46,19 +49,19 @@ stdenv.mkDerivation {
     mkdir -p $out/bin
     read -ra array <<< "$srcs"
     cp -r ''${src} $out/lib/core
-    install -m755 -D ''${array[0]} $out/lib/moon
-    install -m755 -D ''${array[1]} $out/lib/moonc
-    install -m755 -D ''${array[2]} $out/lib/moonfmt
-    install -m755 -D ''${array[3]} $out/lib/moonrun
-    install -m755 -D ''${array[4]} $out/lib/moondoc
-    install -m755 -D ''${array[5]} $out/lib/mooninfo
-    ln -s $out/lib/moon $out/bin/moon
+    install -m755 -D ''${array[0]} $out/bin/moon
+    install -m755 -D ''${array[1]} $out/bin/moonc
+    install -m755 -D ''${array[2]} $out/bin/moonfmt
+    install -m755 -D ''${array[3]} $out/bin/moonrun
+    install -m755 -D ''${array[4]} $out/bin/moondoc
+    install -m755 -D ''${array[5]} $out/bin/mooninfo
     runHook postInstall
   '';
   meta = with lib; {
     homepage = "https://www.moonbitlang.com";
     name = "moonbit";
-    description = "Intelligent developer platform for Cloud and Edge using WASM";
+    description =
+      "Intelligent developer platform for Cloud and Edge using WASM";
     platforms = platforms.linux;
     maintainers = [ "CAIMEO" ];
   };
