@@ -43,6 +43,7 @@ stdenv.mkDerivation {
     cat env-vars
     runHook preInstall
     mkdir -p $out/lib
+    mkdir -p $out/bin
     read -ra array <<< "$srcs"
     cp -r ''${src} $out/lib/core
     install -m755 -D ''${array[0]} $out/lib/moon
@@ -51,6 +52,7 @@ stdenv.mkDerivation {
     install -m755 -D ''${array[3]} $out/lib/moonrun
     install -m755 -D ''${array[4]} $out/lib/moondoc
     install -m755 -D ''${array[5]} $out/lib/mooninfo
+    ln -s $out/lib/moon $out/bin/moon
     runHook postInstall
   '';
   meta = with lib; {
