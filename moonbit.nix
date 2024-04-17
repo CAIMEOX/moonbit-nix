@@ -1,4 +1,4 @@
-{ stdenv, pkgs, fetchurl, fetchzip, lib }:
+{ stdenv, fetchurl, fetchzip, lib }:
 let cli = "https://cli.moonbitlang.com";
 in stdenv.mkDerivation {
   pname = "moonbit";
