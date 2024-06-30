@@ -19,6 +19,8 @@ jobs:
       - run: |
           npm install
           node update.js
+          git config --global user.email "1853884864@qq.com"
+          git config --global user.name "CAIMEOX"
           git add .
           git commit -m "version: update hashes"
           git push
