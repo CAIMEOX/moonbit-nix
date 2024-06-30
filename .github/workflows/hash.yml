@@ -21,7 +21,7 @@ jobs:
           node update.js
       - uses: gr2m/create-or-update-pull-request-action@v1
         env:
-        GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
         with:
           author: Lampese <me@lampese.com>
           body: update hashes
