@@ -1,6 +1,6 @@
-import { writeFileSync } from "fs";
 import axios from "axios";
 import crypto from "crypto";
+import { writeFileSync, rmSync } from "fs";
 
 const fileList = {
   "core.zip": { url: "https://cli.moonbitlang.com/core.zip" },
@@ -91,4 +91,8 @@ in stdenv.mkDerivation {
   );
 }
 
-getFiles().then(generateNixFile);
+function deleteCache() {
+  for (const name in fileList) rmSync(name);
+}
+
+getFiles().then(generateNixFile).then(deleteCache);
