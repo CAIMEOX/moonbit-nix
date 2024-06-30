@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [20]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
@@ -23,6 +23,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
         with:
-          author: Lampese <me@lampese.com>
+          author: CAIMEOX <1853884864@qq.com>
           commit-message: "hash: update hashes"
           title: "hash: update hashes"
