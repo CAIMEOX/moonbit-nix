@@ -24,5 +24,3 @@ jobs:
           git add .
           git commit -m "version: update hashes"
           git push
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
