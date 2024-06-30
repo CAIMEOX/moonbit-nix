@@ -18,7 +18,6 @@ async function getFiles() {
     const fileData = (await axios.get(fileList[name].url)).data;
     hash.update(fileData);
     fileList[name].hash = "sha256-" + hash.digest("hex");
-    console.log(fileList[name].hash)
     writeFileSync(name, fileData);
   }
 }
@@ -29,6 +28,7 @@ function unwrapHash(name) {
 
 function generateNixFile() {
   writeFileSync(
+    "moonbit.nix",
     `{ stdenv, fetchurl, fetchzip, lib }:
 let cli = "https://cli.moonbitlang.com";
 in stdenv.mkDerivation {
@@ -93,10 +93,7 @@ in stdenv.mkDerivation {
 }
 
 function deleteCache() {
-  for (const name in fileList){
-    console.log(fileList[name])
-    rmSync(name);
-  }
+  for (const name in fileList) rmSync(name);
 }
 
 getFiles().then(generateNixFile).then(deleteCache);
