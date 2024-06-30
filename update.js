@@ -16,6 +16,7 @@ async function getFiles() {
   for (const name in fileList) {
     const hash = crypto.createHash("sha256");
     const fileData = (await axios.get(fileList[name].url)).data;
+    console.log(fileData);
     hash.update(fileData);
     fileList[name].hash = "sha256-" + hash.digest("hex");
     writeFileSync(name, fileData);
