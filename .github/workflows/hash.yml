@@ -24,4 +24,4 @@ jobs:
           git remote set-url origin https://github.com/CAIMEOX/moonbit-nix.git
           git add .
           git commit -m "version: update hashes"
-          git push
+          git push --set-upstream origin main
