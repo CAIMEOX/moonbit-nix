@@ -24,7 +24,5 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
         with:
           author: Lampese <me@lampese.com>
-          body: update hashes
-          branch: actions/authors-update
-          commit-message: "version: update hashes"
-          title: "version: update hashes"
+          commit-message: "hash: update hashes"
+          title: "hash: update hashes"
