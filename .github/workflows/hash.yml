@@ -19,10 +19,8 @@ jobs:
       - run: |
           npm install
           node update.js
-      - uses: gr2m/create-or-update-pull-request-action@v1
+          git add .
+          git commit -m "version: update hashes"
+          git push
         env:
           GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
-        with:
-          author: CAIMEOX <1853884864@qq.com>
-          commit-message: "hash: update hashes"
-          title: "hash: update hashes"
