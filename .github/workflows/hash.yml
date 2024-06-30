@@ -11,23 +11,23 @@ jobs:
   strategy:
     matrix:
       node-version: [18.x]
-  steps:
-    - name: Checkout source
-      uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v3
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: Get binary and update hash
-      run: |
-        npm install
-        node update.js
-      uses: gr2m/create-or-update-pull-request-action@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
-      with:
-        author: Lampese <me@lampese.com>
-        body: update hashes
-        branch: actions/authors-update
-        commit-message: "version: update hashes"
-        title: "version: update hashes"
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: Get binary and update hash
+        run: |
+          npm install
+          node update.js
+        uses: gr2m/create-or-update-pull-request-action@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
+        with:
+          author: Lampese <me@lampese.com>
+          body: update hashes
+          branch: actions/authors-update
+          commit-message: "version: update hashes"
+          title: "version: update hashes"
