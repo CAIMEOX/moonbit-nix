@@ -12,20 +12,16 @@ jobs:
     matrix:
       node-version: [18.x]
     steps:
-      - name: Checkout source
-        uses: actions/checkout@v4
-      - name: Use Node.js ${{ matrix.node-version }}
-        uses: actions/setup-node@v3
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-      - name: Get binary and update hash
-        run: |
+      - run: |
           npm install
           node update.js
-      - name: Pull Request
-        uses: gr2m/create-or-update-pull-request-action@v1
+      - uses: gr2m/create-or-update-pull-request-action@v1
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GH_USER_TOKEN }}
         with:
           author: Lampese <me@lampese.com>
           body: update hashes
